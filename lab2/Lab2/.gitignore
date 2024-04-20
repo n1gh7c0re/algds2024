@@ -2,5 +2,10 @@
 **/Release
 **/.vs
 **/*vcxproj.user
+<<<<<<< Updated upstream
+=======
+**/*vcxproj.filters
+**/*vcxproj
+>>>>>>> Stashed changes
 **/pch.h
 **/pch.cpp

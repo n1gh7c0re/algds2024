@@ -4,6 +4,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <malloc.h>
+#include <string.h>
+
+#define MAX_LENGTH 100
 
 typedef struct Node {
     int key, priority;
@@ -143,26 +146,31 @@ void DeleteNode(Treap* Treap, int key) {
 }
 
 // Prints Treap in one line
-void ResultInOrder(Node* root) {
+void ResultInOrder(Node* root, char* res) {
     if (root != NULL) {
-        ResultInOrder(root->left);
+        char arr[MAX_LENGTH];
+
         printf("(%d, %d) ", root->key, root->priority);
-        ResultInOrder(root->right);
+        sprintf(arr, "(%d, %d) ", root->key, root->priority);
+        strcat(res, arr);
+
+        ResultInOrder(root->left, res);
+        ResultInOrder(root->right, res);
     }
 }
 
-// Prints Treap structure
+// Prints Treap rotated on 90 degrees
 void printTree(Node* root, int space) {
     if (root == NULL) {
         return;
     }
-    space += 3;
+    space += 5;
     printTree(root->right, space);
     printf("\n");
-    for (int i = 3; i < space; i++) {
-        printf(" ");
+    for (int i = 5; i < space; i++) {
+        printf("  ");
     }
-    printf("%d\n", root->key);
+    printf("(%d, %d)\n", root->key, root->priority);
     printTree(root->left, space);
 }
 
@@ -178,15 +186,18 @@ void Interface(Treap Treap) {
         AddNode(&Treap, arr[0], arr[1]);
     }
 
+    char res[MAX_LENGTH];
+
     printf("Inorder traversal of the Treap: ");
-    ResultInOrder(Treap.root);
+    ResultInOrder(Treap.root, res);
+    //printf("%s", res);
     printf("\n");
     printTree(Treap.root, 0);
 
     int m = 0;
     printf("\nEnter the number of nodes you want to delete: ");
     scanf("%d", &m);
-    if (m != 0){
+    if (m != 0) {
         for (int i = 0; i < m; i++) {
             int node = 0;
             printf("Enter the node you want to delete: ");
@@ -194,8 +205,9 @@ void Interface(Treap Treap) {
             DeleteNode(&Treap, node);
         }
 
+        char result[MAX_LENGTH];
         printf("Inorder traversal of the Treap after deleting: ");
-        ResultInOrder(Treap.root);
+        ResultInOrder(Treap.root, result);
         printf("\n");
         printTree(Treap.root, 0);
     }
