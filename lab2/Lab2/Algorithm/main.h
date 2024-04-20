@@ -184,17 +184,20 @@ void Interface(Treap Treap) {
     printTree(Treap.root, 0);
 
     int m = 0;
-    printf("Enter the number of nodes you want to delete: ");
+    printf("\nEnter the number of nodes you want to delete: ");
     scanf("%d", &m);
-    for (int i = 0; i < m; i++) {
-        int node = 0;
-        printf("Enter the node you want to delete: ");
-        scanf("%d", &node);
-        DeleteNode(&Treap, node);
-    }
+    if (m != 0){
+        for (int i = 0; i < m; i++) {
+            int node = 0;
+            printf("Enter the node you want to delete: ");
+            scanf("%d", &node);
+            DeleteNode(&Treap, node);
+        }
 
-    printf("Inorder traversal of the Treap after deleting: ");
-    ResultInOrder(Treap.root);
-    printf("\n");
-    printTree(Treap.root, 0);
+        printf("Inorder traversal of the Treap after deleting: ");
+        ResultInOrder(Treap.root);
+        printf("\n");
+        printTree(Treap.root, 0);
+    }
+    else printf("No changes");
 };
